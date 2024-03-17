@@ -1,0 +1,50 @@
+<snippet>
+	<content><![CDATA[
+vi tin(N);
+vi tout(N);
+ll tym;
+vvl up(N,vi(30));
+void dfs1(ll u,ll e){
+    tym++;
+    tin[u]=tym;
+    up[u][0]=e;
+    
+    for(ll i=1;i<30;i++){
+        up[u][i]= up[up[u][i-1]][i-1];
+    }
+
+    for(auto x: adj[u]){
+        if(x!=e)dfs1(x,u);
+    }
+    tym++;
+    tout[u]=tym;
+}
+
+bool is_ancestor(ll u, ll v)
+{
+    return tin[u] <= tin[v] && tout[u] >= tout[v];
+}
+
+
+ll lca(ll u,ll v){
+    if (is_ancestor(u, v))
+        return u;
+    if (is_ancestor(v, u))
+        return v;
+    for (int i = 29; i >= 0; --i) {
+        if (!is_ancestor(up[u][i], v))
+            u = up[u][i];
+    }
+    return up[u][0];
+}
+
+void preProcess(ll root){
+    tym=0;
+    dfs1(root,root);
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>lca</tabTrigger> 
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

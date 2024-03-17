@@ -1,0 +1,27 @@
+<snippet>
+	<content><![CDATA[
+vi generateDivisors(vpll primeFactors) {
+    vi d = {1};
+
+    for (const auto& factor : primeFactors) {
+        ll prime = factor.first;
+        ll power = factor.second;
+
+        ll currentSize = d.size();
+        for (ll i = 0; i < currentSize; ++i) {
+            ll divisor = d[i];
+            ll t=prime;
+            for (ll j = 1; j <= power; ++j) {
+                d.push_back(divisor * t );
+                t*=prime;
+            }
+        }
+    }
+    return d;
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>generateDivisors from primeFactorization</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

@@ -1,0 +1,20 @@
+<snippet>
+	<content><![CDATA[
+vpll primeFactors(ll x){
+    map<ll,ll> m;
+    while(x>1){
+        m[lp[x]]++;
+        x/=lp[x];
+    }
+    vpll arr;
+    for(auto x: m){
+        arr.pb(x);
+    }
+    return arr;
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>prime factorization using linear seive</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

@@ -1,0 +1,32 @@
+<snippet>
+	<content><![CDATA[
+int N=1e5;
+const long INF = 1000000000;
+vector<vector<pair<int,long>>> adj(N);
+vector<long> djikstra(int s,int n){
+    vector<long> distance(n,INF);
+    vector<bool> vis(n,false);
+    priority_queue<pair<long,int>> q;
+    distance[s]=0;
+    q.push({0,s});
+    while(!q.empty()){
+        int a=q.top().second;
+        q.pop();
+        if(vis[a])continue;
+        vis[a]=true;
+        for(auto u: adj[a]){
+            int b=u.first,w=u.second;
+            if(distance[a]+w<distance[b]){
+                distance[b]=distance[a]+w;
+                q.push({-distance[b],b});
+            }
+        }
+    }
+    return distance;
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>djikstra</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

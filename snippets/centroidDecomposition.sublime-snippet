@@ -1,0 +1,74 @@
+<snippet>
+	<content><![CDATA[
+ll cent,all;
+vector<vi> adj(N);
+vi exists(N);
+vi sz(N);
+
+
+ll dfs(ll u,ll e){
+    ll t=0;
+    for(auto x: adj[u]){
+        if(x==e || exists[x]==0)continue;
+        t+=dfs(x,u);
+    }
+    sz[u]=t+1;
+    return t+1;
+}
+void setSize(ll u){
+    dfs(u,u);
+}
+
+
+void dfs2(ll u,ll e){
+    if(cent!=-1)return;
+    ll t=-1;
+    for(auto x: adj[u]){
+        if(x==e || exists[x]==0)continue;
+        if(sz[x]>(all/2)){
+            t=x;
+        }
+    }
+    if(t!=-1)dfs2(t,u);
+    else {
+        cent=u;
+        return;
+    }
+}
+ll findCentroid(ll u){
+    setSize(u);
+    all=sz[u];
+    cent=-1;
+    dfs2(u,u);
+    return cent;
+}
+
+void dis(ll u,ll e,ll r,map<ll,ll> &total,map<ll,ll> &m){
+    if(r>k)return;
+    total[r]++;
+    m[r]++;
+    for(auto x: adj[u]){
+        if(x==e || exists[x]==0)continue;
+        dis(x,u,r+1,total,m);
+    }
+}
+
+void func(ll u){
+    ll t=findCentroid(u);
+    exists[t]=0;
+    for(auto x: adj[t]){
+        if(exists[x]==1){
+            func(x);
+        }
+    }
+    //to do code here
+
+    //code ends here
+    exists[t]=1;
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>centroidDecomposition</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

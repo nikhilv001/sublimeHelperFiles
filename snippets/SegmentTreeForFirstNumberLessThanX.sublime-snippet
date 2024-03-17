@@ -1,0 +1,59 @@
+<snippet>
+	<content><![CDATA[
+const int MAXN=3e5+10;
+
+ll n, t[4*MAXN];
+void build(vi a, int v, int tl, int tr) {       // v=1 tl=0 tr=n-1
+    if (tl == tr) {
+        t[v] = a[tl];
+    } else {
+        int tm = (tl + tr) / 2;
+        build(a, v*2, tl, tm);
+        build(a, v*2+1, tm+1, tr);
+        t[v] = min(t[v*2],t[v*2+1]);
+    }
+}
+
+//set lv=0 rv=n-1 and v=1 l and r are 0 indexed
+
+int query(int v, int tl, int tr, int l, int r) {    // range minimum query v=1 tl=0 tr=n-1 lr 0 indexed
+    if (l > r) 
+        return -1;
+    if (l == tl && r == tr) {
+        return t[v];
+    }
+    int tm = (tl + tr) / 2;
+    return min(query(v*2, tl, tm, l, min(r, tm))
+           ,query(v*2+1, tm+1, tr, max(l, tm+1), r)) ;
+}
+
+//set lv=0 rv=n-1 and v=1 l and r are 0 indexed
+
+int get_first(int v, int lv, int rv, int l, int r, int x) { 
+    if(lv > r || rv < l) return -1;
+    if(l <= lv && rv <= r) {
+        if(t[v] >= x) return -1;
+        while(lv != rv) {
+            int mid = lv + (rv-lv)/2;
+            if(t[2*v] < x) {
+                v = 2*v;
+                rv = mid;
+            }else {
+                v = 2*v+1;
+                lv = mid+1;
+            }
+        }
+        return lv;
+    }
+
+    int mid = lv + (rv-lv)/2;
+    int rs = get_first(2*v, lv, mid, l, r, x);
+    if(rs != -1) return rs;
+    return get_first(2*v+1, mid+1, rv, l ,r, x);
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>SegmentTreeForFirstNumberLessThanX</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

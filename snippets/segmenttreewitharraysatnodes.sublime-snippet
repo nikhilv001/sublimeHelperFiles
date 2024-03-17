@@ -1,0 +1,44 @@
+<snippet>
+	<content><![CDATA[
+ll g=1e5+10;
+vvl t(2*g);
+ll n;
+
+void build(){
+    for(ll i=n-1;i>0;i--){
+        vi r(t[i<<1].size()+t[i<<1|1].size());
+        merge(all(t[i<<1]),all(t[i<<1|1]),r.begin());
+        t[i] =r;
+    }
+}
+
+ll query(ll l,ll r,ll x){
+    ll sum=0;
+    for(l+=n,r+=n;l<r;l>>=1,r>>=1){
+        if(l&1){
+            auto it= upper_bound(all(t[l]),x);
+            sum+= it-t[l].begin();
+            //
+            l++;
+        }
+        if(r&1){
+            r--;
+            //
+            auto it=upper_bound(all(t[r]),x);
+            sum+=it-t[r].begin();
+        }
+    }
+    return sum;
+}
+//
+// rep(i,n){
+//     t[i+n].pb(a[i]); this is how to initialize
+// }
+//
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>segment tree with arrays at nodes</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

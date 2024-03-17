@@ -1,0 +1,34 @@
+<snippet>
+	<content><![CDATA[
+const int K = 26;
+
+struct Vertex {
+    int next[K];
+    int output = 0;
+
+    Vertex() {
+        fill(begin(next), end(next), -1);
+    }
+};
+
+vector<Vertex> triee(1);
+
+void add_string(string &s) {
+    int v = 0;
+    triee[v].output++;
+    for (char ch : s) {
+        int c = ch - 'a';
+        if (triee[v].next[c] == -1) {
+            triee[v].next[c] = triee.size();
+            triee.emplace_back();
+        }
+        v = triee[v].next[c];
+        triee[v].output++;
+    }
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>trie cp algorithm</tabTrigger> 
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

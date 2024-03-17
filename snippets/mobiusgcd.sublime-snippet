@@ -1,0 +1,16 @@
+<snippet>
+	<content><![CDATA[
+vector<ll> dp(n+5,0); //number of pairs (x,y) such that 1<=x,y<=n && gcd(x,y)==k = dp[k]
+    for(ll i=n;i>=1;i--){
+        ll freq=n/i; 
+        dp[i]=(freq*(freq-1))/2; 
+        for(ll j=i+i;j<=n;j+=i){
+            dp[i]-=dp[j]; 
+        }
+    }  
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>mobiusgcd</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

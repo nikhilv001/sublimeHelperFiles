@@ -1,0 +1,85 @@
+<snippet>
+	<content><![CDATA[
+// 0 based indexing
+struct SegmentTree{
+    ll n;
+    vector<ll> t;
+    
+    SegmentTree(vector<ll> &a){
+        n=a.size();
+        vi tt(4*n+1);
+        t=tt;
+        build(a,1,0,n-1);
+    }
+
+    ll sum(ll l,ll r){
+        ll v=1;
+        ll tl=0;
+        ll tr=n-1;
+        return sumUtil(v,tl,tr,l,r);
+    }
+    void update(ll p,ll val){
+        ll v=1;
+        ll tl=0;
+        ll tr=n-1;
+        updateUtil(v,tl,tr,p,val);
+    }
+    
+    ll prefix(ll k){
+        ll v=1;
+        ll tl=0;
+        ll tr=n-1;
+        return prefixUtil(v,tl,tr,k);
+    }
+
+    // call build with v=1 tl=0 tr=n-1
+    void build(vector<ll> &a, ll v, ll tl, ll tr) {
+        if (tl == tr) {
+            t[v] = a[tl];
+        } else {
+            ll tm = (tl + tr) / 2;
+            build(a, v*2, tl, tm);
+            build(a, v*2+1, tm+1, tr);
+            t[v] = t[v*2] + t[v*2+1];
+        }
+    }
+    ll sumUtil(ll v, ll tl, ll tr, ll l, ll r) {
+        if (l > r) 
+            return 0;
+        if (l == tl && r == tr) {
+            return t[v];
+        }
+        ll tm = (tl + tr) / 2;
+        return sumUtil(v*2, tl, tm, l, min(r, tm))
+               + sumUtil(v*2+1, tm+1, tr, max(l, tm+1), r);
+    }
+    void updateUtil(ll v, ll tl, ll tr, ll pos, ll new_val) {
+        if (tl == tr) {
+            t[v] = new_val;
+        } else {
+            ll tm = (tl + tr) / 2;
+            if (pos <= tm)
+                updateUtil(v*2, tl, tm, pos, new_val);
+            else
+                updateUtil(v*2+1, tm+1, tr, pos, new_val);
+            t[v] = t[v*2] + t[v*2+1];
+        }
+    }
+    ll prefixUtil(ll v, ll tl, ll tr, ll k) {
+        if (k > t[v])
+            return -1;
+        if (tl == tr)
+            return tl;
+        ll tm = (tl + tr) / 2;
+        if (t[v*2] >= k)
+            return prefixUtil(v*2, tl, tm, k);
+        else 
+            return prefixUtil(v*2+1, tm+1, tr, k - t[v*2]);
+    }
+};
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>segment tree cp algorithms</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

@@ -1,0 +1,47 @@
+<snippet>
+	<content><![CDATA[
+#include <bits/stdc++.h>
+typedef long long int ll;
+#define ld long double
+#define pb push_back
+/* You may enter other macros defined by you */
+
+using namespace std;
+
+const int MOD = 1e9+7;
+const ld PI = acos(-1);
+const ld EPS = 1e-9;
+const ll INF = 1e18;
+
+/* You may enter some functions too if you find them important */
+
+void solve(){
+
+	
+
+	return;
+}
+	
+int main(){
+
+	ios::sync_with_stdio(0);
+	cin.tie(0); cout.tie(0);
+
+	int TC = 1,t = 0;
+	cin >> TC;
+	while(t++ < TC){
+		// cout << "Case #" << t << ": "; // For Google CodeJam and Kickstart
+		solve();
+		// cout << "/n";
+	}
+
+	cerr << "Time : " << 1000 * ((double)clock()) / (double)CLOCKS_PER_SEC << "ms\n";
+
+	return 0; 
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>template</tabTrigger> 
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

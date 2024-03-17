@@ -1,0 +1,21 @@
+<snippet>
+	<content><![CDATA[
+vector<vector<ll>> knapSack(ll w, vi wt,vi val, ll  n) 
+{ 
+    vector<vector<ll> > dp(n + 1, vector<ll>(w + 1,1e17));
+    dp[0][0]=0; 
+    for(ll i=0;i<n;i++){
+        for(ll j=0;j<=w;j++){
+            dp[i+1][j]=min(dp[i][j],dp[i+1][j]);
+            if(j+wt[i]<=w)
+            dp[i+1][j+wt[i]]=min(dp[i][j]+val[i],dp[i+1][j+wt[i]]);
+        }
+    }    
+    return dp;
+} 
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>knapsack minimum value</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>
